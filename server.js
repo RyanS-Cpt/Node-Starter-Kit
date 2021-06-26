@@ -27,8 +27,14 @@ app.get("/hello", function (req, res) {
 });
 
 app.get("/chocolate", (req, res) => {
-    let query = req.query.amount;
-    res.send(`I can only eat ${query*2} pieces of chocolate, no less!`);
+	let query = req.query.amount;
+	res.send(`I can only eat ${query * 2} pieces of chocolate, no less!`);
+});
+
+app.get("/multiply", (req, res) => {
+	let valOne = req.query.value1;
+	let valTwo = req.query.value2;
+	res.send(`That would equal ${valOne * valTwo}, thank you!`);
 });
 
 //listen for requests - typically placed at the end of the document after routes defined
