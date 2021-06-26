@@ -21,9 +21,14 @@ app.get("/codeyourfuture", (req, res) => {
 	);
 });
 
-app.get("/", function (req, res) {
+app.get("/hello", function (req, res) {
 	let searchQuery = req.query.search;
 	res.send("Hello World! You searched for " + searchQuery);
+});
+
+app.get("/chocolate", (req, res) => {
+    let query = req.query.amount;
+    res.send(`I can only eat ${query*2} pieces of chocolate, no less!`);
 });
 
 //listen for requests - typically placed at the end of the document after routes defined
