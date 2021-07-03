@@ -45,6 +45,7 @@ app.get("/albums", function (req, res) {
 	res.send(albumsData);
 });
 
+//3.2.2
 app.get("/albums/:albumId", (req, res) => {
 	const { albumId } = req.params;
 	console.log(albumId);
@@ -55,7 +56,7 @@ app.get("/albums/:albumId", (req, res) => {
 		res.status(404).json({ Err: `No album with id:${albumId} found` });
 	}
 });
-
+//4.2
 app.post("/albums", (req, res) => {
 	const newAlbum = req.body;
 
