@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json());
 
 app.get("/", (req, res) => {
 	console.log("Root is working");
@@ -28,10 +29,50 @@ const albumsData = [
 		primaryGenreName: "Pop",
 		url: "https://www.youtube.com/embed/ViwtNLUqkMY?rel=0&amp;controls=0&amp;showinfo=0",
 	},
+	{
+		albumId: "12",
+		artistName: "Beyoncé",
+		collectionName: "I Am... Sasha Fierce",
+		artworkUrl100:
+			"https://upload.wikimedia.org/wikipedia/en/9/96/I_Am..._Sasha_Fierce.png",
+		releaseDate: "2008-11-12T07:00:00Z",
+		primaryGenreName: "Pop",
+		url: "https://www.youtube.com/playlist?list=PL8AC872D0F225EE17",
+	},
 ];
 
 app.get("/albums", function (req, res) {
 	res.send(albumsData);
+});
+
+app.get("/albums/:albumId", (req, res) => {
+	const { albumId } = req.params;
+	console.log(albumId);
+	if (albumsData.some((album) => album.albumId === albumId)) {
+		const foundAlbum = albumsData.find((album) => album.albumId === albumId);
+		res.send(foundAlbum);
+	} else {
+		res.status(404).json({ Err: `No album with id:${albumId} found` });
+	}
+});
+
+app.post("/albums", (req, res) => {
+	const newAlbum = req.body;
+
+	albumsData.push(newAlbum);
+
+	res.send(albumsData);
+});
+
+app.delete("/albums/:albumId", (req, res) => {
+	const { albumId } = req.params;
+
+	if (albumId) {
+		const filteredAlbums = albumsData.filter(
+			(album) => album.albumId !== albumId
+		);
+		res.status(200).json({ success: "true", filteredAlbums });
+	}
 });
 
 app.listen(3000, () => {
