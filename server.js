@@ -77,16 +77,16 @@ app.delete("/albums/:albumId", (req, res) => {
 });
 
 //Put request
-app.put("/albums/:albumId", (req,res)=>{
-	console.log("PUT /albums route");
-	const {albumId} = req.body;
-	index = albumsData.findIndex(album=> album.albumId == albumId);
-	if(index >=0){
-	res.send(req.body)
-	}else{
-		res.status(400).json({msg:`No data with ID ${albumId}`});
+app.put("/albums/:albumId", (req, res) => {
+	const { albumId } = req.params;
+	index = albumsData.findIndex((album) => album.albumId == albumId);
+	if (index >= 0) {
+		albumsData[index] = req.body;
+		res.json(albumsData);
+	} else {
+		res.status(400).json({ msg: `No data with ID ${albumId}` });
 	}
-})
+});
 
 app.listen(3000, () => {
 	console.log("Server is listening on port 3000");
