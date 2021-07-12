@@ -82,9 +82,9 @@ app.put("/albums/:albumId", (req, res) => {
 	index = albumsData.findIndex((album) => album.albumId == albumId);
 	if (index >= 0) {
 		albumsData[index] = req.body;
-		res.json(albumsData);
+		res.json({success : "true",albumsData});
 	} else {
-		res.status(400).json({ msg: `No data with ID ${albumId}` });
+		res.status(400).json({ msg: `No data with ID: ${albumId}` });
 	}
 });
 
